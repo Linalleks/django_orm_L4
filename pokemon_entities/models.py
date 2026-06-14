@@ -3,9 +3,9 @@ from django.db import models
 
 class Pokemon(models.Model):
     title_ru = models.CharField('Название', max_length=200)
-    title_en = models.CharField('Название (англ)', max_length=200)
-    title_jp = models.CharField('Название (яп)', max_length=200)
-    description = models.TextField()
+    title_en = models.CharField('Название (англ)', max_length=200, null=True, blank=True)
+    title_jp = models.CharField('Название (яп)', max_length=200, null=True, blank=True)
+    description = models.TextField('Описание', null=True, blank=True)
     image = models.ImageField('Изображение', upload_to="images", null=True, blank=True)
     previous_evolution = models.ForeignKey('self', verbose_name='Из кого эволюционировал', on_delete=models.SET_NULL,
                                            null=True, blank=True, related_name='next_evolutions')
@@ -23,13 +23,13 @@ class PokemonEntity(models.Model):
                                 on_delete=models.CASCADE, related_name='entities')
     lat = models.FloatField('Широта')
     lon = models.FloatField('Долгота')
-    appeared_at = models.DateTimeField('Дата и время появления')
-    disappeared_at = models.DateTimeField('Дата и время исчезновения')
-    level = models.IntegerField('Уровень', default=0)
-    health = models.IntegerField('Здоровье', default=0)
-    strength = models.IntegerField('Атака', default=0)
-    defence = models.IntegerField('Защита', default=0)
-    stamina = models.IntegerField('Выносливость', default=0)
+    appeared_at = models.DateTimeField('Дата и время появления', null=True, blank=True)
+    disappeared_at = models.DateTimeField('Дата и время исчезновения', null=True, blank=True)
+    level = models.IntegerField('Уровень', default=0, blank=True)
+    health = models.IntegerField('Здоровье', default=0, blank=True)
+    strength = models.IntegerField('Атака', default=0, blank=True)
+    defence = models.IntegerField('Защита', default=0, blank=True)
+    stamina = models.IntegerField('Выносливость', default=0, blank=True)
 
     class Meta:
         verbose_name = 'Особь покемонов'
