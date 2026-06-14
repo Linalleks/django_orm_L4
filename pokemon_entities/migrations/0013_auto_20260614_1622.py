@@ -19,4 +19,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(copy_pokemons_to_postPokemons)
     ]
-
