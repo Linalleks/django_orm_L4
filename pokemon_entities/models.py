@@ -25,11 +25,11 @@ class PokemonEntity(models.Model):
     lon = models.FloatField('Долгота')
     appeared_at = models.DateTimeField('Дата и время появления', null=True, blank=True)
     disappeared_at = models.DateTimeField('Дата и время исчезновения', null=True, blank=True)
-    level = models.IntegerField('Уровень', default=0, blank=True)
-    health = models.IntegerField('Здоровье', default=0, blank=True)
-    strength = models.IntegerField('Атака', default=0, blank=True)
-    defence = models.IntegerField('Защита', default=0, blank=True)
-    stamina = models.IntegerField('Выносливость', default=0, blank=True)
+    level = models.IntegerField('Уровень', null=True, blank=True)
+    health = models.IntegerField('Здоровье', null=True, blank=True)
+    strength = models.IntegerField('Атака', null=True, blank=True)
+    defence = models.IntegerField('Защита', null=True, blank=True)
+    stamina = models.IntegerField('Выносливость', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Особь покемонов'
