@@ -33,7 +33,8 @@ def build_pokemon_image_url(request, pokemon):
 
 def show_all_pokemons(request):
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for pokemon_entity in PokemonEntity.objects.filter(appeared_at__lt=now(), disappeared_at__gt=now()):
+    currently = now()
+    for pokemon_entity in PokemonEntity.objects.filter(appeared_at__lt=currently, disappeared_at__gt=currently):
         add_pokemon(
             folium_map,
             pokemon_entity.lat,
