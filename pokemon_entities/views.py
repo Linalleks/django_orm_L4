@@ -32,8 +32,9 @@ def build_pokemon_image_url(request, pokemon):
 
 
 def show_all_pokemons(request):
-    folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     currently = now()
+    folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
+
     for pokemon_entity in PokemonEntity.objects.filter(appeared_at__lt=currently,
                                                        disappeared_at__gt=currently):
         add_pokemon(
@@ -60,9 +61,11 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
     pokemon_image = build_pokemon_image_url(request, pokemon)
-
+    currently = now()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for pokemon_entity in pokemon.entities.filter(appeared_at__lt=now(), disappeared_at__gt=now()):
+
+    for pokemon_entity in pokemon.entities.filter(appeared_at__lt=currently,
+                                                  disappeared_at__gt=currently):
         add_pokemon(
             folium_map,
             pokemon_entity.lat,

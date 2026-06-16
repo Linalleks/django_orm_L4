@@ -6,10 +6,13 @@ class Pokemon(models.Model):
     title_en = models.CharField('Название (англ)', max_length=200, blank=True)
     title_jp = models.CharField('Название (яп)', max_length=200, blank=True)
     description = models.TextField('Описание', blank=True)
-    image = models.ImageField('Изображение', upload_to="images", null=True, blank=True)
-    previous_evolution = models.ForeignKey('self', verbose_name='Из кого эволюционировал',
-                                           on_delete=models.SET_NULL, null=True, blank=True,
-                                           related_name='next_evolutions')
+    image = models.ImageField('Изображение', upload_to='images', null=True, blank=True)
+    previous_evolution = models.ForeignKey('self',
+                                           verbose_name='Из кого эволюционировал',
+                                           on_delete=models.SET_NULL,
+                                           null=True, blank=True,
+                                           related_name='next_evolutions'
+                                           )
 
     class Meta:
         verbose_name = 'Покемон'
@@ -20,8 +23,11 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    pokemon = models.ForeignKey(Pokemon, verbose_name='Покемон',
-                                on_delete=models.CASCADE, related_name='entities')
+    pokemon = models.ForeignKey(Pokemon,
+                                verbose_name='Покемон',
+                                on_delete=models.CASCADE,
+                                related_name='entities'
+                                )
     lat = models.FloatField('Широта')
     lon = models.FloatField('Долгота')
     appeared_at = models.DateTimeField('Дата и время появления', null=True, blank=True)
@@ -37,4 +43,4 @@ class PokemonEntity(models.Model):
         verbose_name_plural = 'Особи покемонов'
 
     def __str__(self):
-        return f"{self.pokemon.title_ru} - {self.lat} : {self.lon}"
+        return f'{self.pokemon.title_ru} - {self.lat} : {self.lon}'
